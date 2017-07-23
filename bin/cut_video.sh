@@ -39,8 +39,19 @@ $0 vids/myvideo2.mp4 00:00:00 00:01:00 \n
     myvideo2_cut.mp4 in the current directory
 \n"
 
+
 ########################################################################
-# CODE
+# FUNCTIONS
+########################################################################
+
+# Print $1 to stderr and exit with $2
+exit_err() {
+	>&2 echo "$1"
+	exit "$2"
+}
+
+########################################################################
+# PROCESS ARGUMENTS
 ########################################################################
 
 # If there is wrong number of arguments, print help
@@ -51,8 +62,7 @@ fi
 
 # Check that the important $COMMAND is installed
 if ! type $COMMAND >/dev/null 2>&1 ; then
-	>&2 echo "ERROR: You need $COMMAND installed to run this."
-	exit 1
+	exit_err "ERROR: You need $COMMAND installed to run this." 1
 fi
 
 # Determine dest_file
@@ -71,9 +81,12 @@ fi
 
 # Check that dest_file doesn't already exist
 if [[ -f $DEST ]] || [[ -d $DEST ]] ; then
-	>&2 echo "ERROR: '$DEST' already exists. I won't overwrite it."
-	exit 2
+	exit_err "ERROR: '$DEST' already exists. I won't overwrite it." 2
 fi
+
+########################################################################
+# MAIN CODE
+########################################################################
 
 echo -e "Running\n $COMMAND -ss $2 -i $1 -t $3 -vcodec copy -acodec copy $DEST"
 $COMMAND -ss $2 -i $1 -t $3 -vcodec copy -acodec copy $DEST
