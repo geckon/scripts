@@ -1,6 +1,10 @@
 # scripts
 Usually one purpose scripts provided without any warranty under the MIT License.
 
+## Description
+
+The following scripts are available in `bin` so you can include the directory in your `$PATH` if you are brave or foolish enough:
+
 ##### `cut_video.sh`
 - Copies a part (specified by time) of a video file to a new file.
 - Uses `ffmpeg`.
