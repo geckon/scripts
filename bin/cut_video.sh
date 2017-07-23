@@ -12,6 +12,10 @@
 # INIT
 ########################################################################
 
+# Exit if a command fails or a variable is unset
+set -e
+set -u
+
 SUFFIX="_cut"
 COMMAND="ffmpeg"
 
