@@ -18,6 +18,7 @@ set -u
 
 SUFFIX="_cut"
 COMMAND="ffmpeg"
+SCRIPT=`basename "$0"`
 
 ########################################################################
 # USAGE
@@ -25,7 +26,7 @@ COMMAND="ffmpeg"
 
 USAGE="Simple video cutter - usage:
 \n\n
-$0 source_file start length [dest_file]
+$SCRIPT source_file start length [dest_file]
 \n\n
 dest_file is not required - if it's missing, the result will be named as
 the source_file with $SUFFIX added before the file extension.
@@ -34,11 +35,11 @@ source_file won't be modified.
 \n\n
 EXAMPLES:
 \n\n
-$0 vids/myvideo.mp4 00:00:42 00:00:13 res/cut.mp4 \n
+$SCRIPT vids/myvideo.mp4 00:00:42 00:00:13 res/cut.mp4 \n
 \t- cut 13 seconds from vids/myvideo.mp4 starting from the 42nd second
     and store the result as res/cut.mp4
 \n\n
-$0 vids/myvideo2.mp4 00:00:00 00:01:00 \n
+$SCRIPT vids/myvideo2.mp4 00:00:00 00:01:00 \n
 \t- cut the first minute from vids/myvideo2.mp4 and store it as
     myvideo2_cut.mp4 in the current directory
 \n"
