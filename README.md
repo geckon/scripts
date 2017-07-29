@@ -10,5 +10,10 @@ The following scripts are available in `bin` so you can include the directory in
 - Uses `ffmpeg`.
 - Run without arguments to print help.
 
+##### `speedup_video.sh`
+- Speeds up (or slows down) a video and stores it as a new file.
+- Uses `ffmpeg`.
+- Run without arguments to print help.
+
 ## DISCLAIMER
 While there is no malicious code included on purpose and the scripts were written with the best intentions, they may still do harm. Do not run any of the scripts unless you examined and understood what they do and even then be careful with them. The scripts may delete your files, destroy your computer, blow your house up, injure people and even kill some kittens.
