@@ -5,6 +5,7 @@ import argparse
 import requests
 from bs4 import BeautifulSoup
 
+
 def parse_args():
     "Parse script's arguments."
     parser = argparse.ArgumentParser(
@@ -24,6 +25,7 @@ def parse_args():
                              'multiple tag classes')
     return parser.parse_args()
 
+
 def include_tag(css_class):
     """Should this tag be included in the result?
 
@@ -35,6 +37,7 @@ def include_tag(css_class):
     if args.user_class and args.user_class == css_class:
         return True
     return False
+
 
 def ignore_tag(css_class):
     """Should this tag be ignored in the result?
@@ -62,4 +65,3 @@ if __name__ == '__main__':
 
     # print the result
     print(res_soup.prettify())
-
