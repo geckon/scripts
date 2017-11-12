@@ -27,7 +27,7 @@ def parse_args():
 def include_tag(css_class):
     """Should this tag be included in the result?
 
-    Return True if the given css_class is either post_class or 
+    Return True if the given css_class is either post_class or
     user_class provided by the user as a CLI argument, False otherwise.
     """
     if args.post_class == css_class:
