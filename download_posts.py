@@ -23,6 +23,10 @@ def parse_args():
                         help='CSS class that should be ignored, can be '
                              'provided multiple times to ignore '
                              'multiple tag classes')
+    parser.add_argument('-r', '--add-hr',
+                        action='store_true',
+                        help='Add <HR> tag after each tag added to the '
+                             'result')
     return parser.parse_args()
 
 
@@ -57,6 +61,8 @@ if __name__ == '__main__':
     result = ''
     for tag in source.find_all(class_=include_tag):
         result += str(tag)
+        if args.add_hr:
+            result += '<HR>'
 
     # remove the not wanted tags
     res_soup = BeautifulSoup(result, 'html.parser')
