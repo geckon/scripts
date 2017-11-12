@@ -10,9 +10,9 @@ The following scripts are available in `bin` so you can include the directory in
 - Uses `ffmpeg`.
 - Run without arguments to print help.
 
-##### `posts_dl/download_posts.py`
+##### `download_posts.py`
 - Downloads forum posts specified by CSS classes. Can also include authors.
-- Uses `requests` and `bs4`.
+- Uses `requests` and `bs4` (see `download_posts/requirements.txt`).
 - Run with `-h|--help` to print help.
 
 ##### `speedup_video.sh`
