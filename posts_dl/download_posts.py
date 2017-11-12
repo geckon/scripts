@@ -17,6 +17,11 @@ def parse_args():
                         required=True)
     parser.add_argument('-u', '--user-class',
                         help='add author to the result, expects CSS class')
+    parser.add_argument('-i', '--ignore-class',
+                        action='append',
+                        help='CSS class that should be ignored, can be '
+                             'provided multiple times to ignore '
+                             'multiple tag classes')
     return parser.parse_args()
 
 def include_tag(css_class):
@@ -31,14 +36,30 @@ def include_tag(css_class):
         return True
     return False
 
+def ignore_tag(css_class):
+    """Should this tag be ignored in the result?
+
+    Return True if the given css_class is among ignore-class arguments
+    provided by the user via CLI, False otherwise.
+    """
+    return css_class in args.ignore_class
+
 if __name__ == '__main__':
     args = parse_args()
 
+    # download the page
     source = BeautifulSoup(requests.get(args.url).text, 'html.parser')
 
+    # collect the wanted tags
     result = ''
     for tag in source.find_all(class_=include_tag):
         result += str(tag)
 
-    print(BeautifulSoup(result, 'html.parser').prettify())
+    # remove the not wanted tags
+    res_soup = BeautifulSoup(result, 'html.parser')
+    for tag in res_soup(class_=ignore_tag):
+        tag.extract()
+
+    # print the result
+    print(res_soup.prettify())
 
