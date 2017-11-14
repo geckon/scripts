@@ -36,12 +36,19 @@ def parse_args():
     parser.add_argument('-D', '--debug',
                         action='store_true',
                         help='Print debug messages (to stderr).')
+    parser.add_argument('-l', '--recursion-limit',
+                        type=int,
+                        help='Overwrite recursion limit (may be needed for '
+                             'large threads; use with caution)')
     args = parser.parse_args()
 
     if (not args.url and not args.file) or (args.url and args.file):
         print('ERROR: URL or file need to be provided but not both.',
               file=sys.stderr)
         exit(1)
+
+    if args.recursion_limit:
+        sys.setrecursionlimit(args.recursion_limit)
 
     return args
 
