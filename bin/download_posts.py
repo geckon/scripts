@@ -13,7 +13,10 @@ def parse_args():
         usage='Extract tags specified by CSS classes. Primarily '
               'intended to be used to download forum posts.')
     parser.add_argument('url',
-                        help='URL to be downloaded from')
+                        help='URL to be downloaded from',
+                        nargs='?')
+    parser.add_argument('-f', '--file',
+                        help='file to filter; needed if no URL is provided')
     parser.add_argument('-p', '--post-class',
                         help='CSS class of posts',
                         required=True)
@@ -31,7 +34,12 @@ def parse_args():
     parser.add_argument('-D', '--debug',
                         action='store_true',
                         help='Print debug messages (to stderr).')
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if (not args.url and not args.file) or (args.url and args.file):
+        print('ERROR: URL or file need to be provided but not both.',
+              file=sys.stderr)
+        exit(1)
 
 
 def debug_msg(msg):
