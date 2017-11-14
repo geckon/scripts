@@ -17,6 +17,8 @@ def parse_args():
                         nargs='?')
     parser.add_argument('-f', '--file',
                         help='file to filter; needed if no URL is provided')
+    parser.add_argument('-e', '--encoding',
+                        help='file encoding; used only with -f|--file option')
     parser.add_argument('-p', '--post-class',
                         help='CSS class of posts',
                         required=True)
@@ -40,6 +42,8 @@ def parse_args():
         print('ERROR: URL or file need to be provided but not both.',
               file=sys.stderr)
         exit(1)
+
+    return args
 
 
 def debug_msg(msg):
@@ -69,14 +73,24 @@ def ignore_tag(css_class):
     """
     return css_class in args.ignore_class
 
+
 if __name__ == '__main__':
     args = parse_args()
 
-    # download the page
-    response = requests.get(args.url)
-    debug_msg("Downloaded '{}' with HTTP code {}".format(args.url,
-                                                         response.status_code))
-    source = BeautifulSoup(response.text, 'html.parser')
+    if args.url:
+        # download the page
+        response = requests.get(args.url)
+        debug_msg("Downloaded '{}' with HTTP code {}".format(
+            args.url, response.status_code))
+        source = BeautifulSoup(response.text, 'html.parser')
+    else:
+        # read the file
+        debug_msg("Reading file '{}'".format(args.file))
+        if args.encoding:
+            f = open(args.file, 'r', encoding=args.encoding)
+        else:
+            f = open(args.file, 'r')
+        source = BeautifulSoup(f.read(), 'html.parser')
     debug_msg("The HTML source:\n{}".format(source))
 
     # collect the wanted tags
