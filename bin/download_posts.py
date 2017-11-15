@@ -12,11 +12,16 @@ def parse_args():
     parser = argparse.ArgumentParser(
         usage='Extract tags specified by CSS classes. Primarily '
               'intended to be used to download forum posts.')
-    parser.add_argument('url',
-                        help='URL to be downloaded from',
-                        nargs='?')
-    parser.add_argument('-f', '--file',
-                        help='file to filter; needed if no URL is provided')
+
+    # input arguments - exactly one needed
+    input_group = parser.add_mutually_exclusive_group(required=True)
+    input_group.add_argument('url',
+                             help='URL to be downloaded from',
+                             nargs='?')
+    input_group.add_argument('-f', '--file',
+                             help='file to scan; needed if no URL is provided')
+
+    # the rest of the arguments
     parser.add_argument('-e', '--encoding',
                         help='file encoding; used only with -f|--file option')
     parser.add_argument('-a', '--add-class',
@@ -42,11 +47,6 @@ def parse_args():
                         help='Overwrite recursion limit (may be needed for '
                              'large threads; use with caution)')
     args = parser.parse_args()
-
-    if (not args.url and not args.file) or (args.url and args.file):
-        print('ERROR: URL or file need to be provided but not both.',
-              file=sys.stderr)
-        exit(1)
 
     if args.recursion_limit:
         sys.setrecursionlimit(args.recursion_limit)
