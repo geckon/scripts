@@ -19,11 +19,12 @@ def parse_args():
                         help='file to filter; needed if no URL is provided')
     parser.add_argument('-e', '--encoding',
                         help='file encoding; used only with -f|--file option')
-    parser.add_argument('-p', '--post-class',
-                        help='CSS class of posts',
-                        required=True)
-    parser.add_argument('-u', '--user-class',
-                        help='add author to the result, expects CSS class')
+    parser.add_argument('-a', '--add-class',
+                        action='append',
+                        required=True,
+                        help='CSS class that should be added to the result, '
+                             'can be provided multiple times to add multiple '
+                             'tag classes')
     parser.add_argument('-i', '--ignore-class',
                         action='append',
                         help='CSS class that should be ignored, can be '
@@ -65,11 +66,7 @@ def include_tag(css_class):
     Return True if the given css_class is either post_class or
     user_class provided by the user as a CLI argument, False otherwise.
     """
-    if args.post_class == css_class:
-        return True
-    if args.user_class and args.user_class == css_class:
-        return True
-    return False
+    return css_class in args.add_class
 
 
 def ignore_tag(css_class):
