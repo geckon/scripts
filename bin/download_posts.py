@@ -75,7 +75,9 @@ def ignore_tag(css_class):
     Return True if the given css_class is among ignore-class arguments
     provided by the user via CLI, False otherwise.
     """
-    return css_class in args.ignore_class
+    if args.ignore_class:
+        return css_class in args.ignore_class
+    return False
 
 
 if __name__ == '__main__':
