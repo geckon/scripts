@@ -22,30 +22,34 @@ def parse_args():
                              help='file to scan; needed if no URL is provided')
 
     # the rest of the arguments
-    parser.add_argument('-e', '--encoding',
-                        help='file encoding; used only with -f|--file option')
     parser.add_argument('-a', '--add-class',
                         action='append',
                         required=True,
                         help='CSS class that should be added to the result, '
                              'can be provided multiple times to add multiple '
                              'tag classes')
+    parser.add_argument('-D', '--debug',
+                        action='store_true',
+                        help='Print debug messages (to stderr).')
+    parser.add_argument('-e', '--encoding',
+                        help='file encoding; used only with -f|--file option')
     parser.add_argument('-i', '--ignore-class',
                         action='append',
                         help='CSS class that should be ignored, can be '
                              'provided multiple times to ignore '
                              'multiple tag classes')
+    parser.add_argument('-l', '--recursion-limit',
+                        type=int,
+                        help='overwrite recursion limit (may be needed for '
+                             'large threads; use with caution)')
     parser.add_argument('-r', '--add-hr',
                         action='store_true',
                         help='Add <HR> tag after each tag added to the '
-                             'result')
-    parser.add_argument('-D', '--debug',
+                             'result.')
+    parser.add_argument('-t', '--text_only',
                         action='store_true',
-                        help='Print debug messages (to stderr).')
-    parser.add_argument('-l', '--recursion-limit',
-                        type=int,
-                        help='Overwrite recursion limit (may be needed for '
-                             'large threads; use with caution)')
+                        help='Include only text in the result (i.e. ignore '
+                             'HTML tags and only add their content).')
     args = parser.parse_args()
 
     if args.recursion_limit:
@@ -114,4 +118,7 @@ if __name__ == '__main__':
         tag.extract()
 
     # print the result
-    print(res_soup.prettify())
+    if args.text_only:
+        print(res_soup.text)
+    else:
+        print(res_soup.prettify())
