@@ -1,6 +1,8 @@
 # scripts
 Usually one purpose scripts provided without any warranty under the MIT License.
 
+[![Updates](https://pyup.io/repos/github/geckon/scripts/shield.svg)](https://pyup.io/repos/github/geckon/scripts/)
+
 ## Description
 
 The following scripts are available in `bin` so you can include the directory in your `$PATH` if you are brave or foolish enough:
