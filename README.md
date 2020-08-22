@@ -7,6 +7,11 @@ Usually one purpose scripts provided without any warranty under the MIT License.
 
 The following scripts are available in `bin` so you can include the directory in your `$PATH` if you are brave or foolish enough:
 
+##### `cr2_to_jpg.sh`
+- Converts all CR2 RAW photos in the current directory to JPGs.
+- Keeps the original files.
+- Uses darktable (specifically `darktable-cli`).
+
 ##### `cut_video.sh`
 - Copies a part (specified by time) of a video file to a new file.
 - Uses `ffmpeg`.
