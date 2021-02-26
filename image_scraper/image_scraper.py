@@ -46,7 +46,7 @@ IMAGE_HREF_XPATH = '//td/a/@href'
 INITIAL_URL = ''
 #
 # Filesystem path to store images to.
-PATH_TO_IMAGE_STORE = ''
+PATH_TO_IMAGE_STORE = '.'
 #
 # Browse "subdirectories" or not? The logic is very stupid and it will consider
 #  any path not containing a dot a directory.
